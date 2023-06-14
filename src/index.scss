@@ -1,5 +1,9 @@
 @use '@porsche-design-system/components-js/styles' as *;
 
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 * {
     box-sizing: border-box;
 }
