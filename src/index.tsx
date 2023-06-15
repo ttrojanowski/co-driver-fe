@@ -8,8 +8,9 @@ import "./index.scss";
 import Layout from "./pages/layout/Layout";
 import NoPage from "./pages/NoPage";
 import OneShot from "./pages/oneshot/OneShot";
-import Chat from "./pages/chat/Chat";
 import { PorscheDesignSystemProvider } from "@porsche-design-system/components-react";
+import Settings from "./pages/settings/Settings";
+import ChatV2 from "./pages/chatv2/ChatV2";
 
 initializeIcons();
 
@@ -18,8 +19,9 @@ export default function App() {
         <HashRouter>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    <Route index element={<Chat />} />
+                    <Route index element={<ChatV2 />} />
                     <Route path="qa" element={<OneShot />} />
+                    <Route path="settings" element={<Settings />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>

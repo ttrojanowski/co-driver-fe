@@ -26,6 +26,10 @@ export const NavBar = ({ className }: Props) => {
       <PIcon name="question" />
       <p>Ask the question</p>
     </NavLink>,
+    <NavLink key="settings" to="/settings" className="flex items-center space-x-1">
+      <PIcon name="wrenches" />
+      <p>Settings</p>
+    </NavLink>,
     <NavLink key="logout" to="/" className="flex items-center space-x-1">
       <PIcon name="logout" />
       <p>Logout</p>
@@ -38,10 +42,7 @@ export const NavBar = ({ className }: Props) => {
             w-full
             fixed top-0 left-0 right-0 z-10 h-[80px] md:justify-around justify-between`}
     >
-      <Link
-        to="/"
-        className="cursor-pointer items-center hover:text-orange-700 flex"
-      >
+      <Link to="/" className="cursor-pointer items-center flex">
         <img src={codriverlogo} className="w-20" />
         <PHeading
           className="hidden md:block"
@@ -54,10 +55,7 @@ export const NavBar = ({ className }: Props) => {
       </Link>
 
       <div className="items-center hidden space-x-8 md:flex">
-        <PWordmark
-          href="https://www.porsche.com"
-          aria={{ "aria-label": "Porsche Homepage" }}
-        />
+        <PWordmark aria={{ "aria-label": "Porsche Homepage" }} />
       </div>
 
       <div className="flex items-center space-x-5">

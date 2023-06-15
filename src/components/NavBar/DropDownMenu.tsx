@@ -3,15 +3,18 @@ import React, { useState, FC } from "react";
 
 interface DropdownItemProps {
   item: React.ReactNode;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface DropdownMenuProps {
   items: React.ReactNode[];
 }
 
-const DropdownItem: FC<DropdownItemProps> = ({ item }) => (
+const DropdownItem: FC<DropdownItemProps> = ({ item, setIsOpen }) => (
   <div className="p-1 px-4 border-b last:border-b-0 border-b-slate-950">
-    {item}
+    <button onClick={() => setIsOpen(false)}>
+      {item}
+    </button>
   </div>
 );
 const DropdownMenu: FC<DropdownMenuProps> = ({ items }) => {
@@ -39,7 +42,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ items }) => {
         >
           <div className="py-2" role="none">
             {items.map((item, index) => (
-              <DropdownItem key={index} item={item} />
+              <DropdownItem key={index} item={item} setIsOpen={setIsOpen} />
             ))}
           </div>
         </div>

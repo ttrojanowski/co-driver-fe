@@ -7,10 +7,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    backgroundImage: {
-      heroImage: "url('src/assets/hero.jpg')",
-    },
     extend: {
+      backgroundImage: {
+        heroImage: "url('src/assets/hero.jpg')",
+      },
       colors: {
         hero: '#0c0e14',
       },
