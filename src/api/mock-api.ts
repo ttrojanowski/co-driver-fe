@@ -42,7 +42,7 @@ export async function chatApi(options: ChatRequest): Promise<AskResponse> {
             }
 
             resolve(mockedResponse);
-        }, 1000);
+        }, 3000);
     });
 }
 

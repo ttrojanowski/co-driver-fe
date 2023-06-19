@@ -234,7 +234,7 @@ const ChatV2 = () => {
               <ExampleList onExampleClicked={onExampleClicked} />
             </div>
           ) : (
-            <div className={styles.chatMessageStream}>
+            <div className="flex max-w-screen-xl max-h-screen-xl w-full overflow-y-auto pl-6 pr-6 flex-col flex-grow">
               {answers.map((answer, index) => (
                 <div key={index}>
                   <UserChatMessage message={answer[0]} />
@@ -288,8 +288,8 @@ const ChatV2 = () => {
             </div>
           )}
 
-          <div className="flex flex-1 flex-col max-h-[200px] sticky bottom-0 pt-3 pb-6 px-6 bg-prompt w-full space-y-4">
-            <PText className="px-2 font-semibold" size="small" theme="dark">
+          <div className="flex flex-1 flex-col max-h-[200px] sticky bottom-0 pt-3 pb-6 px-6 bg-prompt w-full space-y-4 items-start justify-center">
+            <PText className="px-2 pt-3 font-semibold" size="small" theme="dark">
             Type your question here:
             </PText>
             <QuestionInput

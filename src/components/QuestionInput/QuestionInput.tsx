@@ -57,7 +57,7 @@ export const QuestionInput = ({
   const sendQuestionDisabled = disabled || !question.trim();
 
   return (
-    <Stack horizontal className="bg-white rounded-lg h-24 w-full p-5 shadow-xl">
+    <Stack horizontal className="bg-white rounded-lg h-24 w-full p-5 shadow-sm shadow-hero">
       <TextField
         className="w-full leading-10 text-sm md:text-lg"
         placeholder={placeholder}
@@ -77,7 +77,7 @@ export const QuestionInput = ({
           aria-label="Ask question button"
           onClick={sendQuestion}
         >
-          <PIcon name="chat" />
+          <PIcon name={question ? "arrow-right" : "chat"} />
         </div>
       </div>
     </Stack>

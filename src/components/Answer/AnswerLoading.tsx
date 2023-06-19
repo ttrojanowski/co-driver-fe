@@ -3,24 +3,18 @@ import { animated, useSpring } from "@react-spring/web";
 
 import styles from "./Answer.module.css";
 import { AnswerIcon } from "./AnswerIcon";
+import { PSpinner } from "@porsche-design-system/components-react";
 
 export const AnswerLoading = () => {
-    const animatedStyles = useSpring({
-        from: { opacity: 0 },
-        to: { opacity: 1 }
-    });
-
     return (
-        <animated.div style={{ ...animatedStyles }}>
+        <div>
             <Stack className={styles.answerContainer} verticalAlign="space-between">
                 <AnswerIcon />
                 <Stack.Item grow>
-                    <p className={styles.answerText}>
-                        Generating answer
-                        <span className={styles.loadingdots} />
-                    </p>
-                </Stack.Item>
+                    <p>Generating your answer...</p>
+                    <PSpinner size={{ base: 'small', l: 'medium' }} aria={{ 'aria-label': 'Generating your answer' }} />
+                </Stack.Item>   
             </Stack>
-        </animated.div>
+        </div>
     );
 };
