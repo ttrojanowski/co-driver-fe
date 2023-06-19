@@ -1,13 +1,3 @@
-.examplesNavList {
-    list-style: none;
-    padding-left: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    flex: 1;
-    justify-content: center;
-}
-
 .example {
     word-break: break-word;
     background: #dbdbdb;

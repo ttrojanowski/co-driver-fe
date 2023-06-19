@@ -1,0 +1,84 @@
+$color1: #161719;
+$color2: #26272b;
+$text: #9fa2a7;
+$highlight1: #56b273;
+$highlight2: #b388dd;
+$highlight3: #ff8750;
+$highlight4: #01ad9b;
+
+.speechbubble {
+  background-color: $color2;
+  color: $text;
+  font-size: 0.8em;
+  line-height: 1.75;
+  padding: 15px 25px;
+  margin-bottom: 75px;
+  cursor: default;
+
+  //  Border and arrow left
+  &:nth-child(2n) {
+    border-left: 5px solid;
+  }
+  &:nth-child(2n):after {
+    content: "";
+    margin-top: -30px;
+    padding-top: 0px;
+    position: relative;
+    bottom: -45px;
+    left: 20px;
+    border-width: 30px 0 0 30px;
+    border-style: solid;
+    border-color: $color2 transparent;
+    display: block;
+    width: 0;
+  }
+  //  Border and arrow right
+  &:nth-child(2n + 1) {
+    border-right: 5px solid;
+  }
+  &:nth-child(2n + 1):after {
+    content: "";
+    margin-top: -30px;
+    padding-top: 0px;
+    position: relative;
+    bottom: -45px;
+    left: 350px;
+    border-width: 30px 30px 0 0;
+    border-style: solid;
+    border-color: $color2 transparent;
+    display: block;
+    width: 0;
+  }
+
+  // Randomize every 4th bubble's border color
+  &:nth-child(4n + 1) {
+    //border-color: hsla(random(365), random(365), 50, 1);
+    border-color: $highlight1;
+  }
+  &:nth-child(4n + 2) {
+    border-color: $highlight4;
+  }
+  &:nth-child(4n + 3) {
+    border-color: $highlight2;
+  }
+  &:nth-child(4n + 4) {
+    border-color: $highlight3;
+  }
+
+  // Quotation symbols
+  p:before {
+    content: "“";
+    font-size: 40px;
+    line-height: 0;
+    display: inline-block;
+    display: -webkit-inline-box;
+  }
+  .username {
+    display: inline;
+    font-style: italic;
+    float: right;
+    &:before {
+      content: "- ";
+    }
+  }
+}

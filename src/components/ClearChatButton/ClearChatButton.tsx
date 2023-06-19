@@ -1,4 +1,4 @@
-import { PButton } from "@porsche-design-system/components-react";
+import { PButtonPure } from "@porsche-design-system/components-react";
 
 interface Props {
   className?: string;
@@ -8,14 +8,15 @@ interface Props {
 
 export const ClearChatButton = ({ className, disabled, onClick }: Props) => {
   return (
-    <PButton
+    <PButtonPure
       className={`${className ?? ""}`}
       onClick={onClick}
       icon="delete"
+      theme="dark"
       hideLabel={false}
       disabled={disabled}
     >
       Clear chat
-    </PButton>
+    </PButtonPure>
   );
 };

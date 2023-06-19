@@ -27,7 +27,7 @@ const Settings = () => {
             className="w-full"
             description="Here you can provide your own promp template which will be used to generate prompts for the Co-Driver"
           >
-            <textarea name="custom-prompt" />
+            <textarea name="custom-prompt" placeholder="e.g. Create a list of frequently asked questions for our customer service team based on the context {context}"/>
           </PTextareaWrapper>
         </div>
         <div className="col-span-6 md:col-span-3 px-4 flex items-center justify-center">

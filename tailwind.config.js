@@ -13,6 +13,7 @@ export default {
       },
       colors: {
         hero: '#0c0e14',
+        prompt: '#595959'
       },
     },
   },

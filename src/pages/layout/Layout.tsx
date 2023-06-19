@@ -11,7 +11,7 @@ const Layout = () => {
       {/* <Hero /> */}
       <div className="flex flex-col h-full">
             <NavBar className={styles.header}/>
-            <Hero className="mt-[80px]"/>
+            <Hero />
         {/* <header className={styles.header} role={"banner"}>
           <div className={styles.headerContainer}>
             <Link to="/" className={styles.headerTitleContainer}>

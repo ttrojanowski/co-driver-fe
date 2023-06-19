@@ -26,7 +26,11 @@ export const NavBar = ({ className }: Props) => {
       <PIcon name="question" />
       <p>Ask the question</p>
     </NavLink>,
-    <NavLink key="settings" to="/settings" className="flex items-center space-x-1">
+    <NavLink
+      key="settings"
+      to="/settings"
+      className="flex items-center space-x-1"
+    >
       <PIcon name="wrenches" />
       <p>Settings</p>
     </NavLink>,
@@ -37,30 +41,59 @@ export const NavBar = ({ className }: Props) => {
   ];
 
   return (
-    <nav
-      className={`${className} flex px-3 py-4
-            w-full
-            fixed top-0 left-0 right-0 z-10 h-[80px] md:justify-around justify-between`}
-    >
-      <Link to="/" className="cursor-pointer items-center flex">
-        <img src={codriverlogo} className="w-20" />
-        <PHeading
-          className="hidden md:block"
-          tag="h2"
-          size="medium"
-          color="inherit"
-        >
-          Porsche Co-Driver
-        </PHeading>
-      </Link>
+    <div className="bg-white">
+      <nav className="max-w-screen-xl mx-auto p-0 lg:gap-8 xl:gap-0 lg:grid-cols-12">
+        <div className="mr-auto place-self-center lg:col-span-7">
+          <div className="grid grid-cols-12">
+            <Link
+              to="/"
+              className="col-span-4 cursor-pointer flex items-center justify-start gap-3"
+            >
+              <img src={codriverlogo} className="w-20" />
+              <PHeading
+                className="hidden md:block"
+                tag="h2"
+                size="medium"
+                color="inherit"
+              >
+                Porsche Co-Driver
+              </PHeading>
+            </Link>
+            <div className="col-span-4 flex items-center justify-center">
+              <PWordmark aria={{ "aria-label": "Porsche Homepage" }} />
+            </div>
 
-      <div className="items-center hidden space-x-8 md:flex">
-        <PWordmark aria={{ "aria-label": "Porsche Homepage" }} />
-      </div>
+            <div className="col-span-4 flex items-center justify-end pr-4 md:pr-10">
+              <DropdownMenu items={items} />
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    // <nav
+    //   className={`${className} flex px-3 py-4
+    //         w-full
+    //         fixed top-0 left-0 right-0 z-10 h-[80px] md:justify-around justify-between`}
+    // >
+    // <Link to="/" className="cursor-pointer items-center flex">
+    //   <img src={codriverlogo} className="w-20" />
+    //   <PHeading
+    //     className="hidden md:block"
+    //     tag="h2"
+    //     size="medium"
+    //     color="inherit"
+    //   >
+    //     Porsche Co-Driver
+    //   </PHeading>
+    // </Link>
 
-      <div className="flex items-center space-x-5">
-        <DropdownMenu items={items} />
-      </div>
-    </nav>
+    // <div className="items-center hidden space-x-8 md:flex">
+    //   <PWordmark aria={{ "aria-label": "Porsche Homepage" }} />
+    // </div>
+
+    // <div className="flex items-center space-x-5">
+    //   <DropdownMenu items={items} />
+    // </div>
+    // </nav>
   );
 };
