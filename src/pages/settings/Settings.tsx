@@ -10,7 +10,7 @@ import {
 const Settings = () => {
   return (
     <div>
-      <div className="bg-white p-8 grid max-w-screen-xl mx-auto grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-8">
+      <div className="p-8 grid max-w-screen-xl mx-auto grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-8">
         <div className="p-4 col-span-6">
           <PHeading tag="h1" size="large" className="mb-5">
             Co-Driver Configuration
