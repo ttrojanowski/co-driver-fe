@@ -70,30 +70,5 @@ export const NavBar = ({ className }: Props) => {
         </div>
       </nav>
     </div>
-    // <nav
-    //   className={`${className} flex px-3 py-4
-    //         w-full
-    //         fixed top-0 left-0 right-0 z-10 h-[80px] md:justify-around justify-between`}
-    // >
-    // <Link to="/" className="cursor-pointer items-center flex">
-    //   <img src={codriverlogo} className="w-20" />
-    //   <PHeading
-    //     className="hidden md:block"
-    //     tag="h2"
-    //     size="medium"
-    //     color="inherit"
-    //   >
-    //     Porsche Co-Driver
-    //   </PHeading>
-    // </Link>
-
-    // <div className="items-center hidden space-x-8 md:flex">
-    //   <PWordmark aria={{ "aria-label": "Porsche Homepage" }} />
-    // </div>
-
-    // <div className="flex items-center space-x-5">
-    //   <DropdownMenu items={items} />
-    // </div>
-    // </nav>
   );
 };

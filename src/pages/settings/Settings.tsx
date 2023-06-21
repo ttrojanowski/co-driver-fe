@@ -1,13 +1,21 @@
 import {
-    PButton,
+  PButton,
   PCheckboxWrapper,
   PDivider,
   PHeading,
   PTextFieldWrapper,
   PTextareaWrapper,
 } from "@porsche-design-system/components-react";
+import { useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
 
 const Settings = () => {
+  const changeHeroSection: (short: boolean) => void = useOutletContext();
+
+  useEffect(() => {
+    changeHeroSection(true);
+  }, []);
+
   return (
     <div>
       <div className="p-8 grid max-w-screen-xl mx-auto grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-8">

@@ -94,6 +94,10 @@ const ChatV2 = () => {
     setAnswers([]);
   };
 
+  useEffect(() => {
+    changeHeroSection(false);
+  }, []);
+
   useEffect(
     () => chatMessageStreamEnd.current?.scrollIntoView({ behavior: "smooth" }),
     [isLoading]
