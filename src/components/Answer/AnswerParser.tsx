@@ -37,9 +37,9 @@ export function parseAnswerToHtml(answer: string, onCitationClicked: (citationFi
             const path = getCitationFilePath(part);
 
             return renderToStaticMarkup(
-                <button className="cursor-pointer no-underline" title={part} onClick={() => onCitationClicked(path)}>
+                <a className="cursor-pointer no-underline hover:underline text-lime-500 font-bold" title={part} onClick={() => onCitationClicked(path)}>
                     <sup>{citationIndex}</sup>
-                </button>
+                </a>
             );
         }
     });

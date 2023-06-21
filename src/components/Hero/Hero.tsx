@@ -1,12 +1,7 @@
-import {
-  PButton,
-  PButtonGroup,
-  PModal,
-  PText,
-} from "@porsche-design-system/components-react";
-import hero from "../../assets/hero.jpg";
+import { PButton } from "@porsche-design-system/components-react";
+import { motion } from "framer-motion";
 import { useCallback, useState } from "react";
-import { delay, motion } from "framer-motion";
+import hero from "../../assets/hero.jpg";
 import { GetStartedModal } from "../GetStartedModal/GetStartedModal";
 
 interface Props {
@@ -100,15 +95,15 @@ const longHero = ({ className }: Props) => {
                 whileHover={{ scale: 1.1 }}
                 exit={{ opacity: 0 }}
               >
-              <PButton
-                className="border border-white"
-                variant="primary"
-                hideLabel={{ base: true, s: false }}
-                icon="arrow-right"
-                onClick={onOpen}
-              >
-                Get Started
-              </PButton>
+                <PButton
+                  className="border border-white"
+                  variant="primary"
+                  hideLabel={{ base: true, s: false }}
+                  icon="arrow-right"
+                  onClick={onOpen}
+                >
+                  Get Started
+                </PButton>
               </motion.button>
             </div>
             <div className="hidden lg:block m-0 lg:col-span-5">
@@ -126,10 +121,14 @@ const shortHero = ({ className }: Props) => (
   <div className={className}>
     <section className="bg-gradient-to-r from-gray-800 via-hero to-black">
       <div className="max-w-screen-xl mx-auto p-4">
-        <div className="mr-auto place-self-center my-4 lg:my-8">
-          <h1 className="max-w-2xl mb-4 text-2xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl text-white flex items-center justify-center">
-            Porsche Co-Driver
+        <div className="mr-auto place-self-center my-4 lg:my-6">
+          <h1 className="text-xl text-white mb-5 lg:mb-5 lg:text-3xl font-semibold">
+            Hi there 👋 I'm your Porsche Co-Driver.
           </h1>
+          <p className="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-md lg:text-lg">
+            Your Trusted Source for Answers and Insights into the Porsche
+            Knowledge Hub
+          </p>
         </div>
       </div>
     </section>
@@ -141,3 +140,5 @@ export const Hero = ({ className, short }: Props) => {
     (short && shortHero({ className })) || (!short && longHero({ className }))
   );
 };
+
+export default Hero;

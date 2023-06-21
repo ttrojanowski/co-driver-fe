@@ -1,19 +1,15 @@
-import { useMemo } from "react";
-import { Stack, IconButton } from "@fluentui/react";
 import DOMPurify from "dompurify";
+import { useMemo } from "react";
 
-import styles from "./Answer.module.css";
 
 import { AskResponse, getCitationFilePath } from "../../api";
 import { parseAnswerToHtml } from "./AnswerParser";
-import { AnswerIcon } from "./AnswerIcon";
 
-import logo from "../../assets/co-driver-logo.png";
 import {
   PButtonPure,
-  PDivider,
-  PTag,
+  PDivider
 } from "@porsche-design-system/components-react";
+import logo from "../../assets/co-driver-logo.png";
 
 interface Props {
   answer: AskResponse;
@@ -104,7 +100,7 @@ export const Answer = ({
                 return (
                   <a
                     key={i}
-                    className="text-gray-800 cursor-pointer font-semibold rounded-sm bg-lime-100 shadow-sm p-1 hover:font-bold hover:bg-lime-200"
+                    className="text-gray-800 cursor-pointer font-light rounded-sm bg-lime-100 shadow-sm p-1 hover:font-semibold hover:bg-lime-200/80 hover:shadow-none"
                     title={x}
                     onClick={() => onCitationClicked(path)}
                   >
@@ -117,20 +113,23 @@ export const Answer = ({
         )}
       </div>
       {!!parsedAnswer.followupQuestions.length &&
-        showFollowupQuestions &&
+        // showFollowupQuestions &&
         onFollowupQuestionClicked && (
           <div className="text-sm font-semibold">
-            <p className="mb-2 flex items-center justify-center md:flex-none">
+            <p className="mb-3 md:ml-1 flex items-center justify-center md:flex-none md:justify-normal">
               Follow up Questions:
             </p>
             <div className="flex flex-row gap-2 flex-wrap items-center justify-center md:items-start md:justify-normal max-w-sm md:max-w-lg">
               {parsedAnswer.followupQuestions.map((x, i) => {
                 return (
-                  <PTag key={i} color="notification-success-soft">
-                    <a title={x} onClick={() => onFollowupQuestionClicked(x)}>
-                      {`${++i}. ${x}`}
-                    </a>
-                  </PTag>
+                  <a
+                  key={i}
+                  className="text-gray-800 cursor-pointer font-light rounded-sm bg-lime-100 shadow-sm p-2 hover:font-semibold hover:bg-lime-200/80"
+                  title={x}
+                  onClick={() => onFollowupQuestionClicked(x)}
+                >
+                  {`${++i}. ${x}`}
+                </a>
                 );
               })}
             </div>

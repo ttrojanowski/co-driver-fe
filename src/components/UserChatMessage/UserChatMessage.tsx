@@ -1,6 +1,5 @@
+import { PDivider } from "@porsche-design-system/components-react";
 import avatar from "../../assets/avatar2.png";
-import logo from "../../assets/co-driver-logo.png";
-import { PButtonPure, PDivider } from "@porsche-design-system/components-react";
 
 interface Props {
   message: string;
@@ -19,7 +18,7 @@ export const UserChatMessage = ({ message }: Props) => {
         min-w-[200px]
         p-4 font-medium 
         rounded-lg shadow-md
-        border-r-8 border-indigo-400
+        border-r-8 border-amber-400
       "
       >
         <div className="pb-2">

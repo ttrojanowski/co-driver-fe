@@ -17,6 +17,7 @@ import {
   AnalysisPanelTabs,
 } from "../../components/AnalysisPanel";
 import { PButtonPure } from "@porsche-design-system/components-react";
+import { useOutletContext } from 'react-router-dom';
 
 const ChatV2 = () => {
   const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -45,7 +46,10 @@ const ChatV2 = () => {
     [user: string, response: AskResponse][]
   >([]);
 
+  const changeHeroSection: (short: boolean) => void = useOutletContext();
+
   const makeApiRequest = async (question: string) => {
+    changeHeroSection(true);
     lastQuestionRef.current = question;
 
     error && setError(undefined);
@@ -82,6 +86,7 @@ const ChatV2 = () => {
   };
 
   const clearChat = () => {
+    changeHeroSection(false);
     lastQuestionRef.current = "";
     error && setError(undefined);
     setActiveCitation(undefined);
