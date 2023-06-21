@@ -12,28 +12,32 @@ export const UserChatMessage = ({ message }: Props) => {
     <div className="flex justify-end mb-5 max-w-[80%] ml-auto">
       <div
         className="
-          bg-gray-200
-        text-black text-sm mb-20 
+        bg-white
+        text-black text-sm mb-5
         cursor-default 
         max-w-xl
-        p-4 font-medium
-        rounded-lg shadow-xl
+        min-w-[200px]
+        p-4 font-medium 
+        rounded-lg shadow-md
         border-r-8 border-indigo-400
       "
       >
         <div className="pb-2">
-          <div className="flex items-center justify-start gap-x-2">
-            <img src={avatar} alt="avatar" className="w-8 h-8 rounded-full" />
-            <p className="font-semibold uppercase">John Doe</p>
+          <div className="flex gap-x-2 items-center">
+            <div className="flex-1">
+              <img src={avatar} alt="avatar" className="w-8 h-8 rounded-full" />
+            </div>
+            <p className="font-semibold flex items-center justify-center uppercase">
+              John Doe
+            </p>
+            <div className="flex-1"></div>
           </div>
         </div>
         <PDivider direction="horizontal" color="contrast-high" />
-        <div className="py-4 text-sm md:text-lg overflow-y-auto">"{message}"</div>
+        <div className="py-4 text-sm md:text-lg overflow-y-auto">
+          "{message}"
+        </div>
       </div>
     </div>
-
-    // <div className={styles.container}>
-    //     <div className={styles.message}>{message}</div>
-    // </div>
   );
 };

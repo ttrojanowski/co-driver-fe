@@ -13,7 +13,8 @@ export default {
       },
       colors: {
         hero: '#0c0e14',
-        prompt: '#595959'
+        prompt: '#595959',
+        bgcol: 'rgb(229, 231, 235)'
       },
     },
   },

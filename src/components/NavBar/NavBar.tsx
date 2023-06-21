@@ -22,10 +22,10 @@ export const NavBar = ({ className }: Props) => {
       <PIcon name="chat" />
       <p>Chat</p>
     </NavLink>,
-    <NavLink key="qa" to="/qa" className="flex items-center space-x-1">
-      <PIcon name="question" />
-      <p>Ask the question</p>
-    </NavLink>,
+    // <NavLink key="qa" to="/qa" className="flex items-center space-x-1">
+    //   <PIcon name="question" />
+    //   <p>Ask the question</p>
+    // </NavLink>,
     <NavLink
       key="settings"
       to="/settings"

@@ -4,6 +4,8 @@ import { Send28Filled } from "@fluentui/react-icons";
 
 import styles from "./QuestionInput.module.css";
 import {
+  PCrest,
+  PDivider,
   PIcon,
   PTextFieldWrapper,
 } from "@porsche-design-system/components-react";
@@ -57,9 +59,11 @@ export const QuestionInput = ({
   const sendQuestionDisabled = disabled || !question.trim();
 
   return (
-    <Stack horizontal className="bg-white rounded-lg h-24 w-full p-5 shadow-sm shadow-hero">
+    <Stack horizontal className="bg-white rounded-lg h-15 w-full max-w-screen-xl p-5 shadow-sm shadow-gray-100 flex items-center justify-center">
+      <PCrest className="px-2 h-1"/>
+      <PDivider direction={"vertical"} className="h-14 px-2"/>
       <TextField
-        className="w-full leading-10 text-sm md:text-lg"
+        className="w-full py-0leading-10 text-sm md:text-lg"
         placeholder={placeholder}
         multiline
         resizable={false}

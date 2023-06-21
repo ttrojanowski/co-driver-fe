@@ -1,12 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-import {
-  Checkbox,
-  Panel,
-  DefaultButton,
-  TextField,
-  SpinButton,
-} from "@fluentui/react";
-
 import styles from "../chat/Chat.module.scss";
 
 import {
@@ -24,12 +16,7 @@ import {
   AnalysisPanel,
   AnalysisPanelTabs,
 } from "../../components/AnalysisPanel";
-import { SettingsButton } from "../../components/SettingsButton";
-import { ClearChatButton } from "../../components/ClearChatButton";
-import PorscheLogoSvg from "../../assets/porsche.svg";
-import { ChatBubble } from "../../components/ChatBubble";
-import { motion } from "framer-motion";
-import { PText } from "@porsche-design-system/components-react";
+import { PButtonPure } from "@porsche-design-system/components-react";
 
 const ChatV2 = () => {
   const [isConfigPanelOpen, setIsConfigPanelOpen] = useState(false);
@@ -107,53 +94,54 @@ const ChatV2 = () => {
     [isLoading]
   );
 
-  const onPromptTemplateChange = (
-    _ev?: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
-    newValue?: string
-  ) => {
-    setPromptTemplate(newValue || "");
-  };
+  // const onPromptTemplateChange = (
+  //   _ev?: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
+  //   newValue?: string
+  // ) => {
+  //   setPromptTemplate(newValue || "");
+  // };
 
-  const onRetrieveCountChange = (
-    _ev?: React.SyntheticEvent<HTMLElement, Event>,
-    newValue?: string
-  ) => {
-    setRetrieveCount(parseInt(newValue || "3"));
-  };
+  // const onRetrieveCountChange = (
+  //   _ev?: React.SyntheticEvent<HTMLElement, Event>,
+  //   newValue?: string
+  // ) => {
+  //   setRetrieveCount(parseInt(newValue || "3"));
+  // };
 
-  const onUseSemanticRankerChange = (
-    _ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
-    checked?: boolean
-  ) => {
-    setUseSemanticRanker(!!checked);
-  };
+  // const onUseSemanticRankerChange = (
+  //   _ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
+  //   checked?: boolean
+  // ) => {
+  //   setUseSemanticRanker(!!checked);
+  // };
 
-  const onUseSemanticCaptionsChange = (
-    _ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
-    checked?: boolean
-  ) => {
-    setUseSemanticCaptions(!!checked);
-  };
+  // const onUseSemanticCaptionsChange = (
+  //   _ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
+  //   checked?: boolean
+  // ) => {
+  //   setUseSemanticCaptions(!!checked);
+  // };
 
-  const onExcludeCategoryChanged = (
-    _ev?: React.FormEvent,
-    newValue?: string
-  ) => {
-    setExcludeCategory(newValue || "");
-  };
+  // const onExcludeCategoryChanged = (
+  //   _ev?: React.FormEvent,
+  //   newValue?: string
+  // ) => {
+  //   setExcludeCategory(newValue || "");
+  // };
 
-  const onUseSuggestFollowupQuestionsChange = (
-    _ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
-    checked?: boolean
-  ) => {
-    setUseSuggestFollowupQuestions(!!checked);
-  };
+  // const onUseSuggestFollowupQuestionsChange = (
+  //   _ev?: React.FormEvent<HTMLElement | HTMLInputElement>,
+  //   checked?: boolean
+  // ) => {
+  //   setUseSuggestFollowupQuestions(!!checked);
+  // };
 
   const onExampleClicked = (example: string) => {
     makeApiRequest(example);
   };
 
   const onShowCitation = (citation: string, index: number) => {
+    console.log("onShowCitation", citation, index);
     if (
       activeCitation === citation &&
       activeAnalysisPanelTab === AnalysisPanelTabs.CitationTab &&
@@ -178,63 +166,26 @@ const ChatV2 = () => {
     setSelectedAnswer(index);
   };
 
-  const sentence = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delay: 1,
-        staggerChildren: 0.05,
-      },
-    },
-  };
-
-  const animate = (title: string) => {
-    const letter = {
-      hidden: { opacity: 0, y: 50 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.2
-        }
-      },
-    };
-
-    return title.split("").map((char, index) => (
-      <motion.span key={char + "-" + index} variants={letter}>
-        {char}
-      </motion.span>
-    ));
-  };
-
   return (
-    // <section>
-    //   <div className="grid max-w-screen-xl mx-auto p-4 lg:gap-6 xl:gap-0 lg:grid-cols-12">
-    //     <ChatBubble className="row-span-1 col-start-7 col-span-6 " border="border-r-8 border-green-500"/>
-    //     <ChatBubble className="col-start-1 col-span-6 col-end-13" border=" border-l-8 border-hero bg-gradient-to-br from-rose-300 via-violet-100 to-indigo-300" />
-    //   </div>
-    // </section>
-    <div className="flex flex-1 flex-col mt-5">
+    <div className="flex flex-1 flex-col bg-gray-100">
       <div className="flex flex-1">
         <div className="flex flex-1 flex-col items-center w-full">
           {!lastQuestionRef.current ? (
-            <div className="flex flex-grow flex-col justify-center items-center max-w-screen-xl p-14">
-              <motion.h1
-                className="text-4xl mb-8 lg:mb-16 lg:text-6xl font-semibold"
-                variants={sentence}
-                initial="hidden"
-                animate="visible"
-              >
-                {animate("Hi there 👋 I'm your Porsche Co-Driver.")}
-              </motion.h1>
-              <h2 className="text-2xl mb-2 lg:mb-20 lg:text-3xl font-medium">
-                I'm here to help you! Do you have any questions? Please take a look at the examples below.
-              </h2>
-              <ExampleList onExampleClicked={onExampleClicked} />
+            <div className="flex flex-grow flex-col justify-center items-center max-w-screen-xl p-10">
+              <div className="flex max-w-screen-xl max-h-screen-xl w-full p-0 md:p-8 flex-col items-center">
+                <QuestionInput
+                  clearOnSend
+                  placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
+                  disabled={isLoading}
+                  onSend={(question) => makeApiRequest(question)}
+                />
+              </div>
+              <div className="flex flex-col flex-grow items-center justify-center mt-5">
+                <ExampleList onExampleClicked={onExampleClicked} />
+              </div>
             </div>
           ) : (
-            <div className="flex max-w-screen-xl max-h-screen-xl w-full overflow-y-auto pl-6 pr-6 flex-col flex-grow">
+            <div className="flex max-w-screen-xl max-h-screen-xl w-full overflow-y-auto px-2 pt-5 flex-col flex-grow">
               {answers.map((answer, index) => (
                 <div key={index}>
                   <UserChatMessage message={answer[0]} />
@@ -288,26 +239,33 @@ const ChatV2 = () => {
             </div>
           )}
 
-          <div className="flex flex-1 flex-col max-h-[200px] sticky bottom-0 pt-3 pb-6 px-6 bg-prompt w-full space-y-4 items-start justify-center">
-            <PText className="px-2 pt-3 font-semibold" size="small" theme="dark">
-            Type your question here:
-            </PText>
-            <QuestionInput
-              clearOnSend
-              placeholder="Type a new question (e.g. does my plan cover annual eye exams?)"
-              disabled={isLoading}
-              onSend={(question) => makeApiRequest(question)}
-            />
-            <ClearChatButton
-              onClick={clearChat}
-              disabled={!lastQuestionRef.current || isLoading}
-            />
-          </div>
+          {lastQuestionRef.current && (
+            <div
+              className="flex flex-1 flex-col max-h-[200px] sticky bottom-0 pt-3 pb-6 px-6 w-full space-y-4 items-center justify-center 
+            bg-gray-100"
+            >
+              <QuestionInput
+                clearOnSend
+                placeholder="Type a new question (e.g. What is the Porsche Home Mobile Charger Connect (AC) Energy Manager?)"
+                disabled={isLoading}
+                onSend={(question) => makeApiRequest(question)}
+              />
+              <div className="w-full max-w-screen-xl flex flex-col items-start justify-start">
+                <PButtonPure
+                  onClick={clearChat}
+                  icon="delete"
+                  hideLabel={false}
+                  disabled={!lastQuestionRef.current || isLoading}
+                >
+                  Clear chat
+                </PButtonPure>
+              </div>
+            </div>
+          )}
         </div>
 
         {answers.length > 0 && activeAnalysisPanelTab && (
           <AnalysisPanel
-            className={styles.chatAnalysisPanel}
             activeCitation={activeCitation}
             onActiveTabChanged={(x) => onToggleTab(x, selectedAnswer)}
             citationHeight="810px"
@@ -315,66 +273,9 @@ const ChatV2 = () => {
             activeTab={activeAnalysisPanelTab}
           />
         )}
-
-        <Panel
-          headerText="Configure answer generation"
-          isOpen={isConfigPanelOpen}
-          isBlocking={false}
-          onDismiss={() => setIsConfigPanelOpen(false)}
-          closeButtonAriaLabel="Close"
-          onRenderFooterContent={() => (
-            <DefaultButton onClick={() => setIsConfigPanelOpen(false)}>
-              Close
-            </DefaultButton>
-          )}
-          isFooterAtBottom={true}
-        >
-          <TextField
-            className={styles.chatSettingsSeparator}
-            defaultValue={promptTemplate}
-            label="Override prompt template"
-            multiline
-            autoAdjustHeight
-            onChange={onPromptTemplateChange}
-          />
-
-          <SpinButton
-            className={styles.chatSettingsSeparator}
-            label="Retrieve this many documents from search:"
-            min={1}
-            max={50}
-            defaultValue={retrieveCount.toString()}
-            onChange={onRetrieveCountChange}
-          />
-          <TextField
-            className={styles.chatSettingsSeparator}
-            label="Exclude category"
-            onChange={onExcludeCategoryChanged}
-          />
-          <Checkbox
-            className={styles.chatSettingsSeparator}
-            checked={useSemanticRanker}
-            label="Use semantic ranker for retrieval"
-            onChange={onUseSemanticRankerChange}
-          />
-          <Checkbox
-            className={styles.chatSettingsSeparator}
-            checked={useSemanticCaptions}
-            label="Use query-contextual summaries instead of whole documents"
-            onChange={onUseSemanticCaptionsChange}
-            disabled={!useSemanticRanker}
-          />
-          <Checkbox
-            className={styles.chatSettingsSeparator}
-            checked={useSuggestFollowupQuestions}
-            label="Suggest follow-up questions"
-            onChange={onUseSuggestFollowupQuestionsChange}
-          />
-        </Panel>
       </div>
     </div>
   );
 };
 
 export default ChatV2;
-

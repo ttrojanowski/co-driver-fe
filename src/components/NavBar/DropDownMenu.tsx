@@ -1,5 +1,5 @@
 import { PButtonPure } from "@porsche-design-system/components-react";
-import React, { useState, FC } from "react";
+import React, { useState, FC, useEffect, useRef } from "react";
 
 interface DropdownItemProps {
   item: React.ReactNode;
@@ -12,16 +12,30 @@ interface DropdownMenuProps {
 
 const DropdownItem: FC<DropdownItemProps> = ({ item, setIsOpen }) => (
   <div className="p-1 px-4 border-b last:border-b-0 border-b-slate-950">
-    <button onClick={() => setIsOpen(false)}>
-      {item}
-    </button>
+    <button onClick={() => setIsOpen(false)}>{item}</button>
   </div>
 );
+
 const DropdownMenu: FC<DropdownMenuProps> = ({ items }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
 
   return (
-    <div>
+    <div ref={menuRef}>
       <div>
         <PButtonPure
           aria={{ "aria-haspopup": true, "aria-expanded": true }}
