@@ -1,13 +1,8 @@
-import { Stack, PrimaryButton } from "@fluentui/react";
-import { ErrorCircle24Regular } from "@fluentui/react-icons";
 
-import styles from "./Answer.module.css";
-import logo from "../../assets/co-driver-logo.png";
 import {
   PButton,
-  PButtonPure,
   PDivider,
-  PIcon,
+  PIcon
 } from "@porsche-design-system/components-react";
 
 interface Props {
@@ -17,11 +12,12 @@ interface Props {
 
 export const AnswerError = ({ error, onRetry }: Props) => {
   return (
+    <div className="max-w-[80%] md:max-w-2xl min-w-[50%]">
     <div
       className="bg-white
           text-black text-sm mb-4 
           cursor-default 
-          max-w-sm md:max-w-xl
+          w-full
           p-4 font-medium
           rounded-lg shadow-md
         border-l-8 border-red-600"
@@ -44,11 +40,13 @@ export const AnswerError = ({ error, onRetry }: Props) => {
           onClick={onRetry}
           icon="error-filled"
           variant="secondary"
-          className="mt-4"
+          hideLabel={{ base: true, s: false }}
+          className="mt-2 md:mt-4"
         >
           Retry
         </PButton>
       </div>
+    </div>
     </div>
   );
 };

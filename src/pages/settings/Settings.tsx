@@ -5,16 +5,73 @@ import {
   PHeading,
   PTextFieldWrapper,
   PTextareaWrapper,
+  PToast,
+  useToastManager,
 } from "@porsche-design-system/components-react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import { useEffect } from "react";
+import {
+  useGetConfigurationQuery,
+  useSetConfigurationMutation,
+  useResetConfigurationMutation
+} from "../../store/configurationApi";
+import { Configuration, initialState } from "../../store/models/Configuration";
 
-const Settings = () => {
+const Settings: React.FC = () => {
+  const { data: config } = useGetConfigurationQuery();
+
+  const [configuration, setConfigurationState] =
+    useState<Configuration>(config ?? initialState);
+  
+  const [setConfiguration, { isLoading: isUpdating }] = useSetConfigurationMutation();
+  
+  const [resetConfiguration, { isLoading: isResetting }] = useResetConfigurationMutation();
+
+  const { addMessage } = useToastManager();
+
   const changeHeroSection: (short: boolean) => void = useOutletContext();
 
   useEffect(() => {
     changeHeroSection(true);
   }, []);
+
+  useEffect(() => {
+    if (config) {
+      setConfigurationState(config);
+    }
+  }, [config]);
+
+  const handleSave = () => {
+    if (configuration) {
+      setConfiguration(configuration);
+    }
+    addMessage({ text: "Configuration saved", state: "success" });
+  };
+
+  const handleReset = () => {
+    resetConfiguration();
+    addMessage({ text: "Configuration set to the initial state", state: "success" });
+  };
+    
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if(!configuration) return;
+
+    setConfigurationState({
+      ...configuration,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(!configuration) return;
+    setConfigurationState({
+      ...configuration,
+      [e.target.name]: e.target.checked,
+    });
+  };
 
   return (
     <div>
@@ -35,7 +92,13 @@ const Settings = () => {
             className="w-full"
             description="Here you can provide your own promp template which will be used to generate prompts for the Co-Driver"
           >
-            <textarea name="custom-prompt" placeholder="e.g. Create a list of frequently asked questions for our customer service team based on the context {context}"/>
+            <textarea
+              name="promptTemplate"
+              value={configuration.promptTemplate ?? ""}
+              onChange={handleInputChange}
+              placeholder="e.g. Create a list of frequently asked questions for our customer service team based on the context {context}"
+              maxLength={500}
+            />
           </PTextareaWrapper>
         </div>
         <div className="col-span-6 md:col-span-3 px-4 flex items-center justify-center">
@@ -46,10 +109,11 @@ const Settings = () => {
           >
             <input
               type="number"
-              name="some-name"
-              value={""}
+              name="documentCount"
+              value={configuration.documentCount ?? ""}
               min="1"
               max="50"
+              onChange={handleInputChange}
               placeholder="e.g. 3"
             />
           </PTextFieldWrapper>
@@ -62,8 +126,9 @@ const Settings = () => {
           >
             <input
               type="text"
-              name="some-name"
-              value={""}
+              name="excludeCategory"
+              value={configuration.excludeCategory ?? ""}
+              onChange={handleInputChange}
               placeholder="e.g. Financial"
             />
           </PTextFieldWrapper>
@@ -74,19 +139,53 @@ const Settings = () => {
           </PHeading>
         </div>
         <div className="col-span-6 p-5 flex flex-col gap-4 md:justify-between md:flex-row">
-          <PCheckboxWrapper label="Use semantic ranker for retrieval" hideLabel={false} className="col-span-1">
-            <input type="checkbox" name="checkbox" />
+          <PCheckboxWrapper
+            label="Use semantic ranker for retrieval"
+            hideLabel={false}
+            className="col-span-1"
+          >
+            <input
+              type="checkbox"
+              name="useSemanticRanker"
+              checked={configuration.useSemanticRanker ?? false}
+              onChange={handleCheckboxChange}
+            />
           </PCheckboxWrapper>
-          <PCheckboxWrapper label="Use query-contextual summaries instead of whole documents" hideLabel={false} className="col-span-2">
-            <input type="checkbox" name="checkbox" />
+          <PCheckboxWrapper
+            label="Use query-contextual summaries instead of whole documents"
+            hideLabel={false}
+            className="col-span-2"
+          >
+            <input
+              type="checkbox"
+              name="useContextualSummaries"
+              checked={configuration.useContextualSummaries ?? false}
+              onChange={handleCheckboxChange}
+            />
           </PCheckboxWrapper>
-          <PCheckboxWrapper label="Suggest follow-up questions" hideLabel={false}>
-            <input type="checkbox" name="checkbox" />
+          <PCheckboxWrapper
+            label="Suggest follow-up questions"
+            hideLabel={false}
+          >
+            <input
+              type="checkbox"
+              name="suggestFollowUpQuestions"
+              checked={configuration.suggestFollowUpQuestions ?? false}
+              onChange={handleCheckboxChange}
+            />
           </PCheckboxWrapper>
         </div>
         <div className="row-span-2 col-span-6"></div>
-        <PButton className="col-start-6">Save</PButton>
+        <div className="col-span-6 gap-2 px-4 flex items-center justify-end">
+        <PButton icon="close" variant="secondary" className="min-w-[150px]" onClick={handleReset} loading={isResetting}>
+          Reset Configuration
+        </PButton>
+        <PButton icon="check" className="min-w-[150px]" onClick={handleSave} loading={isUpdating} disabled={config === configuration}>
+          Save
+        </PButton>
+        </div>
       </div>
+      <PToast />
     </div>
   );
 };

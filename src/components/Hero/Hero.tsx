@@ -1,7 +1,7 @@
 import { PButton } from "@porsche-design-system/components-react";
 import { motion } from "framer-motion";
-import { useCallback, useState } from "react";
-import hero from "../../assets/hero.jpg";
+import { FC, useCallback, useState } from "react";
+import hero from "../../assets/porsche-car.jpg";
 import { GetStartedModal } from "../GetStartedModal/GetStartedModal";
 
 interface Props {
@@ -65,8 +65,8 @@ const longHero = ({ className }: Props) => {
     <>
       <div className={className}>
         <section className="bg-gradient-to-r from-gray-800 via-hero to-black">
-          <div className="grid max-w-screen-xl mx-auto p-4 lg:gap-8 xl:gap-0 lg:grid-cols-12">
-            <div className="mr-auto place-self-center my-8 lg:my-16 lg:col-span-7">
+          <div className="grid max-w-screen-xl mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
+            <div className="mr-auto place-self-center p-4 my-8 lg:my-16 lg:col-span-7">
               <motion.div
                 className="text-xl text-white mb-5 lg:mb-10 lg:text-4xl font-semibold"
                 variants={sentence}
@@ -137,7 +137,9 @@ const shortHero = ({ className }: Props) => (
 
 export const Hero = ({ className, short }: Props) => {
   return (
-    (short && shortHero({ className })) || (!short && longHero({ className }))
+    <>
+    {(short && shortHero({ className })) || (!short && longHero({ className }))}
+    </>
   );
 };
 

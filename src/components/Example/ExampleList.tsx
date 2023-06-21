@@ -37,7 +37,7 @@ export const ExampleList = ({ onExampleClicked }: Props) => {
   return (
     <ul className="list-none my-5 px-0 flex flex-wrap md:flex-nowrap gap-5 flex-1 justify-center">
       {EXAMPLES.map((x, i) => (
-        <li key={i}>
+        <li className="w-full" key={i}>
           <Example text={x.text} value={x.value} imgSrc={x.image} onClick={onExampleClicked} />
         </li>
       ))}

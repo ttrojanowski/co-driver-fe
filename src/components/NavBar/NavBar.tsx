@@ -41,7 +41,7 @@ export const NavBar = ({ className }: Props) => {
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-white sticky top-0 z-50">
       <nav className="max-w-screen-xl mx-auto p-0 lg:gap-8 xl:gap-0 lg:grid-cols-12">
         <div className="mr-auto place-self-center lg:col-span-7">
           <div className="grid grid-cols-12">

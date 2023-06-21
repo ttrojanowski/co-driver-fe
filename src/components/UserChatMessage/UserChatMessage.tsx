@@ -8,15 +8,15 @@ interface Props {
 
 export const UserChatMessage = ({ message }: Props) => {
   return (
-    <div className="flex justify-end mb-5 max-w-[80%] ml-auto">
+    <div className="flex justify-end min-w-[300px]">
       <div
         className="
         bg-white
         text-black text-sm mb-5
-        cursor-default 
-        max-w-xl
-        min-w-[200px]
+        cursor-default
         p-4 font-medium 
+        w-[90%]
+        md:max-w-2xl
         rounded-lg shadow-md
         border-r-8 border-amber-400
       "
