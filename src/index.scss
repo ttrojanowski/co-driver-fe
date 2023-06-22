@@ -26,3 +26,13 @@ html {
 #root {
     height: 100%;
 }
+
+table {
+    border-collapse: collapse;
+}
+
+td,th {
+    border: $pds-border-width-thin solid;
+    border-color: gray;
+    padding: 5px;
+}

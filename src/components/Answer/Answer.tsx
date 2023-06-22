@@ -79,7 +79,7 @@ export const Answer = ({
             color="contrast-high"
           />
           <div
-            className="py-3 overflow-y-auto text-sm md:text-lg"
+            className="py-3 overflow-y-auto text-sm md:text-lg table-auto whitespace-pre-line"
             dangerouslySetInnerHTML={{ __html: sanitizedAnswerHtml }}
           ></div>
           {!!parsedAnswer.citations.length && (
