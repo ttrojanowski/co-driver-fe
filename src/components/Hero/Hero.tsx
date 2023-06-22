@@ -98,7 +98,6 @@ const longHero = ({ className }: Props) => {
                 <PButton
                   className="border border-white"
                   variant="primary"
-                  hideLabel={{ base: true, s: false }}
                   icon="arrow-right"
                   onClick={onOpen}
                 >
