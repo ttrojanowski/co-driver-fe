@@ -13,6 +13,7 @@ interface Props {
   disabled: boolean;
   placeholder?: string;
   clearOnSend?: boolean;
+  className?: string;
 }
 
 export const QuestionInput = ({
@@ -20,6 +21,7 @@ export const QuestionInput = ({
   disabled,
   placeholder,
   clearOnSend,
+  className,
 }: Props) => {
   const [question, setQuestion] = useState<string>("");
 
@@ -60,7 +62,7 @@ export const QuestionInput = ({
       {/* <div className="self-start px-1"><ConfigurationInfo/></div> */}
       <Stack
         horizontal
-        className="bg-white rounded-lg h-15 w-full max-w-screen-xl p-5 shadow-md flex items-center justify-center"
+        className={`bg-white rounded-lg h-15 w-full max-w-screen-xl p-5 shadow-md flex items-center justify-center ${className}`}
       >
         <PCrest className="px-2 h-1" />
         <PDivider direction={"vertical"} className="h-14 px-2" />

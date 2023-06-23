@@ -1,18 +1,22 @@
-import { Stack } from "@fluentui/react";
-import { animated, useSpring } from "@react-spring/web";
 
-import styles from "./Answer.module.css";
-import { AnswerIcon } from "./AnswerIcon";
 import { PDivider, PSpinner } from "@porsche-design-system/components-react";
 import logo from "../../assets/co-driver-logo.png";
 
-export const AnswerLoading = () => {
+interface Props {
+  fullWidth?: boolean;
+}
+
+export const AnswerLoading = ({ fullWidth }: Props) => {
   return (
-    <div className="max-w-[80%] md:max-w-2xl min-w-[50%]">
+    <div
+      className={`${
+        fullWidth ? "w-full max-w-screen-lg p-3 md:p-10" : "max-w-[80%] md:max-w-2xl min-w-[50%]"
+      }`}
+    >
       <div
         className="bg-white
         text-black text-sm mb-4 
-        cursor-default 
+        cursor-default
         w-full
         p-4 font-medium
         rounded-lg shadow-md

@@ -7,7 +7,7 @@ import "./index.scss";
 
 import Layout from "./pages/layout/Layout";
 import NoPage from "./pages/NoPage";
-// import OneShot from "./pages/oneshot/OneShot";
+import OneShot from "./pages/oneshot/OneShot";
 import { PorscheDesignSystemProvider } from "@porsche-design-system/components-react";
 import Settings from "./pages/settings/Settings";
 import Chat from "./pages/chat/Chat";
@@ -22,7 +22,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Chat />} />
-          {/* <Route path="qa" element={<OneShot />} /> */}
+          <Route path="qa" element={<OneShot />} />
           <Route path="settings" element={<Settings />} />
           <Route path="*" element={<NoPage />} />
         </Route>

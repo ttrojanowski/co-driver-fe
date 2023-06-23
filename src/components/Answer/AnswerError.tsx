@@ -8,11 +8,16 @@ import {
 interface Props {
   error: string;
   onRetry: () => void;
+  fullWidth?: boolean;
 }
 
-export const AnswerError = ({ error, onRetry }: Props) => {
+export const AnswerError = ({ error, onRetry, fullWidth }: Props) => {
   return (
-    <div className="max-w-[80%] md:max-w-2xl min-w-[50%]">
+    <div
+      className={`${
+        fullWidth ? "w-full max-w-screen-lg p-3 md:p-10" : "max-w-[80%] md:max-w-2xl min-w-[50%]"
+      }`}
+    >
     <div
       className="bg-white
           text-black text-sm mb-4 
@@ -40,7 +45,6 @@ export const AnswerError = ({ error, onRetry }: Props) => {
           onClick={onRetry}
           icon="error-filled"
           variant="secondary"
-          hideLabel={{ base: true, s: false }}
           className="mt-2 md:mt-4"
         >
           Retry

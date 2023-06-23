@@ -1,35 +1,49 @@
 import {
   PButton,
+  PButtonGroup,
   PCheckboxWrapper,
   PDivider,
   PHeading,
+  PModal,
+  PSegmentedControl,
+  PSegmentedControlItem,
+  PText,
   PTextFieldWrapper,
   PTextareaWrapper,
   PToast,
+  SegmentedControlUpdateEvent,
   useToastManager,
 } from "@porsche-design-system/components-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import {
   useGetConfigurationQuery,
+  useResetConfigurationMutation,
   useSetConfigurationMutation,
-  useResetConfigurationMutation
 } from "../../store/configurationApi";
 import { Configuration, initialState } from "../../store/models/Configuration";
+import { Approaches } from "../../api";
 
 const Settings: React.FC = () => {
   const { data: config } = useGetConfigurationQuery();
 
-  const [configuration, setConfigurationState] =
-    useState<Configuration>(config ?? initialState);
-  
-  const [setConfiguration, { isLoading: isUpdating }] = useSetConfigurationMutation();
-  
-  const [resetConfiguration, { isLoading: isResetting }] = useResetConfigurationMutation();
+  const [configuration, setConfigurationState] = useState<Configuration>(
+    config ?? initialState
+  );
+
+  const [setConfiguration, { isLoading: isUpdating }] =
+    useSetConfigurationMutation();
+
+  const [resetConfiguration, { isLoading: isResetting }] =
+    useResetConfigurationMutation();
 
   const { addMessage } = useToastManager();
 
   const changeHeroSection: (short: boolean) => void = useOutletContext();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [key, setKey] = useState(1);
 
   useEffect(() => {
     changeHeroSection(true);
@@ -41,6 +55,14 @@ const Settings: React.FC = () => {
     }
   }, [config]);
 
+  const onModalOpen = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  const onModalClose = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
   const handleSave = () => {
     if (configuration) {
       setConfiguration(configuration);
@@ -50,14 +72,18 @@ const Settings: React.FC = () => {
 
   const handleReset = () => {
     resetConfiguration();
-    addMessage({ text: "Configuration set to the initial state", state: "success" });
+    addMessage({
+      text: "Configuration set to the initial state",
+      state: "success",
+    });
+    setIsModalOpen(false);
+    setKey(key + 1);
   };
-    
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    if(!configuration) return;
+    if (!configuration) return;
 
     setConfigurationState({
       ...configuration,
@@ -66,15 +92,25 @@ const Settings: React.FC = () => {
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if(!configuration) return;
+    if (!configuration) return;
     setConfigurationState({
       ...configuration,
       [e.target.name]: e.target.checked,
     });
   };
 
+  const onApproachUpdate = useCallback(
+    (e: CustomEvent<SegmentedControlUpdateEvent>) => {
+      setConfigurationState({
+        ...configuration,
+        approach: e.detail.value as Approaches,
+      });
+    },
+    []
+  );
+
   return (
-    <div>
+    <div key={key}>
       <div className="p-8 grid max-w-screen-xl mx-auto grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 lg:gap-8">
         <div className="p-4 col-span-6">
           <PHeading tag="h1" size="large" className="mb-5">
@@ -175,17 +211,113 @@ const Settings: React.FC = () => {
             />
           </PCheckboxWrapper>
         </div>
+        <div className="p-4 col-span-6">
+          <PHeading tag="h2" size="small" color="inherit" className="mb-5">
+            Additional ask question configuration
+          </PHeading>
+          <PDivider />
+        </div>
+        <div className="col-start-1 col-span-6 px-4">
+          <PSegmentedControl
+            aria-label="Choose an approach"
+            value={configuration.approach}
+            onUpdate={onApproachUpdate}
+          >
+            <PSegmentedControlItem value={Approaches.RetrieveThenRead}>
+              Retrieve-Then-Read
+            </PSegmentedControlItem>
+            <PSegmentedControlItem value={Approaches.ReadRetrieveRead}>
+              Read-Retrieve-Read
+            </PSegmentedControlItem>
+            <PSegmentedControlItem value={Approaches.ReadDecomposeAsk}>
+              Read-Decompose-Ask
+            </PSegmentedControlItem>
+          </PSegmentedControl>
+        </div>
+        {configuration?.approach === Approaches.ReadRetrieveRead && (
+          <>
+            <div className="col-start-1 col-span-6 px-4 flex items-center justify-center">
+              <PTextareaWrapper
+                label="Override Prompt Prefix Template"
+                hideLabel={false}
+                className="w-full"
+                description="Here you can provide your own promp template which will be used to generate prompts for the Co-Driver"
+              >
+                <textarea
+                  name="promptPrefixTemplate"
+                  value={configuration.promptPrefixTemplate ?? ""}
+                  onChange={handleInputChange}
+                  placeholder="e.g. Create a list of frequently asked questions for our customer service team based on the context {context}"
+                  maxLength={500}
+                />
+              </PTextareaWrapper>
+            </div>
+            <div className="col-start-1 col-span-6 px-4 flex items-center justify-center">
+              <PTextareaWrapper
+                label="Override Prompt Suffix Template"
+                hideLabel={false}
+                className="w-full"
+                description="Here you can provide your own promp template which will be used to generate prompts for the Co-Driver"
+              >
+                <textarea
+                  name="promptSuffixTemplate"
+                  value={configuration.promptSuffixTemplate ?? ""}
+                  onChange={handleInputChange}
+                  placeholder="e.g. Create a list of frequently asked questions for our customer service team based on the context {context}"
+                  maxLength={500}
+                />
+              </PTextareaWrapper>
+            </div>
+          </>
+        )}
         <div className="row-span-2 col-span-6"></div>
         <div className="col-span-6 gap-2 px-4 flex items-center justify-end">
-        <PButton icon="close" variant="secondary" className="min-w-[150px]" onClick={handleReset} loading={isResetting}>
-          Reset Configuration
-        </PButton>
-        <PButton icon="check" className="min-w-[150px]" onClick={handleSave} loading={isUpdating} disabled={config === configuration}>
-          Save
-        </PButton>
+          <PButton
+            icon="close"
+            variant="secondary"
+            className="min-w-[150px]"
+            onClick={onModalOpen}
+          >
+            Reset Configuration
+          </PButton>
+          <PButton
+            icon="check"
+            className="min-w-[150px]"
+            onClick={handleSave}
+            loading={isUpdating}
+            disabled={config === configuration}
+          >
+            Save
+          </PButton>
         </div>
       </div>
       <PToast />
+      <PModal
+        heading="Reset Configuration Confirmation"
+        open={isModalOpen}
+        onDismiss={onModalClose}
+      >
+        <PText className="pt-3">Are you sure to reset the settings?</PText>
+        <PButtonGroup className="mt-10 flex items-center justify-end">
+          <PButton
+            onClick={onModalClose}
+            type="button"
+            variant="secondary"
+            icon="close"
+          >
+            Close
+          </PButton>
+          <PButton
+            icon="close"
+            variant="primary"
+            className="min-w-[150px]"
+            onClick={handleReset}
+            loading={isResetting}
+          >
+            Proceed
+          </PButton>
+        </PButtonGroup>
+      </PModal>
     </div>
   );
 };

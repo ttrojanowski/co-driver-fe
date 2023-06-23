@@ -6,6 +6,7 @@ import { parseAnswerToHtml } from "./AnswerParser";
 
 import { PButtonPure, PDivider } from "@porsche-design-system/components-react";
 import logo from "../../assets/co-driver-logo.png";
+import ShareAnswerDropdown from "../ShareAnswerDropdown/ShareAnswerDropdown";
 
 interface Props {
   answer: AskResponse;
@@ -15,6 +16,7 @@ interface Props {
   onSupportingContentClicked: () => void;
   onFollowupQuestionClicked?: (question: string) => void;
   showFollowupQuestions?: boolean;
+  fullWidth?: boolean;
 }
 
 export const Answer = ({
@@ -25,6 +27,7 @@ export const Answer = ({
   onSupportingContentClicked,
   onFollowupQuestionClicked,
   showFollowupQuestions,
+  fullWidth,
 }: Props) => {
   const parsedAnswer = useMemo(
     () => parseAnswerToHtml(answer.answer, onCitationClicked),
@@ -34,20 +37,25 @@ export const Answer = ({
   const sanitizedAnswerHtml = DOMPurify.sanitize(parsedAnswer.answerHtml);
 
   return (
-    <div className="flex justify-start min-w-sm w-[90%]">
+    <div
+      className={`flex justify-start min-w-sm w-[90%] ${
+        fullWidth ? "w-full" : "w-[90%]"
+      }`}
+    >
       <div>
         <div
-          className={`"
+          className={`
         bg-white
         text-black text-sm mb-4 
         cursor-default 
         w-full
-        md:max-w-2xl
         min-w-sm
         p-4 font-medium
         rounded-lg shadow-md
-        border-l-8 border-lime-300 
-    " ${isSelected ? "outline outline-5 outline-lime-200/70" : ""}`}
+        border-l-8 border-lime-300 ${
+          isSelected ? "outline outline-5 outline-lime-200/70" : ""
+        }
+        ${fullWidth ? 'md:max-w-screen-xl' : 'md:max-w-2xl'}`}
         >
           <div className="pb-2">
             <div className="flex items-center justify-between gap-4">
@@ -70,6 +78,7 @@ export const Answer = ({
                   onClick={onSupportingContentClicked}
                   disabled={!answer.data_points.length}
                 ></PButtonPure>
+                <ShareAnswerDropdown emailSubject={answer.answer} body={answer.answer} />
               </div>
             </div>
           </div>
