@@ -1,5 +1,6 @@
 import { PButtonPure } from "@porsche-design-system/components-react";
-import React, { useState, FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
+import avatar from "../../assets/avatar2.png";
 
 interface DropdownItemProps {
   item: React.ReactNode;
@@ -11,7 +12,7 @@ interface DropdownMenuProps {
 }
 
 const DropdownItem: FC<DropdownItemProps> = ({ item, setIsOpen }) => (
-  <div className="p-1 px-4 border-b last:border-b-0 border-b-slate-950">
+  <div className="p-1 px-4 hover:bg-slate-100 first:hover:bg-white">
     <button onClick={() => setIsOpen(false)}>{item}</button>
   </div>
 );
@@ -55,6 +56,10 @@ const DropdownMenu: FC<DropdownMenuProps> = ({ items }) => {
           aria-labelledby="options-menu"
         >
           <div className="py-2" role="none">
+            <div key="avatar" className="flex items-center space-x-6 p-1">
+              <img src={avatar} className="w-10" />
+              <div className="cursor-default">John Doe</div>
+            </div>
             {items.map((item, index) => (
               <DropdownItem key={index} item={item} setIsOpen={setIsOpen} />
             ))}

@@ -13,7 +13,6 @@ interface Props {
   isSelected?: boolean;
   onCitationClicked: (filePath: string) => void;
   onThoughtProcessClicked: () => void;
-  onSupportingContentClicked: () => void;
   onFollowupQuestionClicked?: (question: string) => void;
   showFollowupQuestions?: boolean;
   fullWidth?: boolean;
@@ -24,7 +23,6 @@ export const Answer = ({
   isSelected,
   onCitationClicked,
   onThoughtProcessClicked,
-  onSupportingContentClicked,
   onFollowupQuestionClicked,
   showFollowupQuestions,
   fullWidth,
@@ -69,14 +67,6 @@ export const Answer = ({
                   aria-label="Show thought process"
                   onClick={onThoughtProcessClicked}
                   disabled={!answer.thoughts}
-                ></PButtonPure>
-                <PButtonPure
-                  icon="list"
-                  size="small"
-                  placeholder="Show supporting content"
-                  aria-label="Show supporting content"
-                  onClick={onSupportingContentClicked}
-                  disabled={!answer.data_points.length}
                 ></PButtonPure>
                 <ShareAnswerDropdown answer={answer.answer} />
               </div>

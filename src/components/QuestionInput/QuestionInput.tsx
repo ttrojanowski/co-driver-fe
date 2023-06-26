@@ -6,7 +6,6 @@ import {
   PDivider,
   PIcon
 } from "@porsche-design-system/components-react";
-import { ConfigurationInfo } from "../ConfigurationInfo/ConfigurationInfo";
 
 interface Props {
   onSend: (question: string) => void;
@@ -59,7 +58,6 @@ export const QuestionInput = ({
 
   return (
       <>
-      {/* <div className="self-start px-1"><ConfigurationInfo/></div> */}
       <Stack
         horizontal
         className={`bg-white rounded-lg h-15 w-full max-w-screen-xl p-5 shadow-md flex items-center justify-center ${className}`}

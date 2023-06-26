@@ -1,12 +1,11 @@
-import { PButtonPure, PIcon } from "@porsche-design-system/components-react";
-import { useState } from "react";
 import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-} from "react-share";
+  PButtonPure,
+  PIcon,
+  PToast,
+  useToastManager,
+} from "@porsche-design-system/components-react";
+import { useCallback, useState, useRef, useEffect } from "react";
+import { EmailShareButton } from "react-share";
 import extractEmailData from "./EmailExtractor";
 
 interface Props {
@@ -14,12 +13,34 @@ interface Props {
 }
 
 const ShareAnswerDropdown = ({ answer }: Props) => {
+  const { addMessage } = useToastManager();
   const [isOpen, setIsOpen] = useState(false);
+  const { subject: emailSubject, body } = extractEmailData(answer);
 
-  const { subject: emailSubject, body } = extractEmailData(answer, "Answer");
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuRef]);
+
+  const copyOnClick = useCallback(() => {
+    navigator.clipboard.writeText(answer ?? "");
+    setIsOpen(false);
+    addMessage({ text: "Copied to clipboard", state: "success" });
+  }, [answer]);
 
   return (
-    <div className="relative inline-block text-left">
+    <div ref={menuRef} className="relative inline-block text-left">
       <div>
         <PButtonPure
           icon="share"
@@ -40,56 +61,30 @@ const ShareAnswerDropdown = ({ answer }: Props) => {
             aria-orientation="vertical"
             aria-labelledby="options-menu"
           >
+            <div className="block text-sm text-gray-700 cursor-pointer">
+              <PIcon
+                name="copy"
+                className="hover:bg-slate-100"
+                aria-disabled
+                aria-placeholder="Copy"
+                onClick={copyOnClick}
+              ></PIcon>
+            </div>
             <EmailShareButton
               subject={emailSubject}
               body={body}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              className="block text-sm text-gray-700"
               role="menuitem"
               url=""
             >
-              <PIcon name="email" />
+              <PIcon name="email" className="hover:bg-slate-100"/>
             </EmailShareButton>
-            <FacebookShareButton
-              disabled
-              quote={body}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem"
-              url="http://porsche.com"
-            >
-              <PIcon name="logo-facebook" />
-            </FacebookShareButton>
-            <TwitterShareButton
-              disabled
-              title={emailSubject}
-              via={body}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem"
-              url="http://porsche.com"
-            >
-              <PIcon name="logo-twitter" />
-            </TwitterShareButton>
-            <LinkedinShareButton
-              disabled
-              title={emailSubject}
-              summary={body}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem"
-              url="http://porsche.com"
-            >
-              <PIcon name="logo-linkedin" />
-            </LinkedinShareButton>
-            <WhatsappShareButton
-              disabled
-              title={emailSubject}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              role="menuitem"
-              url="http://porsche.com"
-            >
-              <PIcon name="logo-whatsapp" />
-            </WhatsappShareButton>
+
+            <PIcon name="chat" aria-disabled aria-placeholder="MS Teams" />
           </div>
         </div>
       )}
+      <PToast />
     </div>
   );
 };

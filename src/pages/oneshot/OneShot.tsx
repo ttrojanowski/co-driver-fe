@@ -99,7 +99,7 @@ const OneShot = () => {
       </div>
       <div className="flex flex-col items-center w-full">
         {!lastQuestionRef.current && (
-          <div className="flex flex-col flex-grow items-center justify-center mt-5">
+          <div className="flex flex-col flex-grow items-center justify-center mt-5 p-3">
             <ExampleList onExampleClicked={onExampleClicked} />
           </div>
         )}
@@ -112,9 +112,6 @@ const OneShot = () => {
               onCitationClicked={(x) => onShowCitation(x)}
               onThoughtProcessClicked={() =>
                 onToggleTab(AnalysisPanelTabs.ThoughtProcessTab)
-              }
-              onSupportingContentClicked={() =>
-                onToggleTab(AnalysisPanelTabs.SupportingContentTab)
               }
             />
           </div>

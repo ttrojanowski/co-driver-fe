@@ -14,10 +14,6 @@ interface Props {
 
 export const NavBar = ({ className }: Props) => {
   const items = [
-    <div key="avatar" className="flex items-center space-x-6 p-1">
-      <img src={avatar} className="w-10" />
-      <p>John Doe</p>
-    </div>,
     <NavLink key="chat" to="/" className="flex items-center space-x-1">
       <PIcon name="chat" />
       <p>Chat</p>
