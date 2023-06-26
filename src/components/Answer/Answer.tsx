@@ -78,7 +78,7 @@ export const Answer = ({
                   onClick={onSupportingContentClicked}
                   disabled={!answer.data_points.length}
                 ></PButtonPure>
-                <ShareAnswerDropdown emailSubject={answer.answer} body={answer.answer} />
+                <ShareAnswerDropdown answer={answer.answer} />
               </div>
             </div>
           </div>

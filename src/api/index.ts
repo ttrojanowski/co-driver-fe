@@ -1,2 +1,2 @@
-export * from "./mock-api";
+export * from "./api";
 export * from "./models";
