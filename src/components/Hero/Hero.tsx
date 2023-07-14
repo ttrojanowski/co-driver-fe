@@ -68,6 +68,7 @@ const longHero = ({ className }: Props) => {
           <div className="grid max-w-screen-xl mx-auto lg:gap-8 xl:gap-0 lg:grid-cols-12">
             <div className="mr-auto place-self-center p-4 my-8 lg:my-16 lg:col-span-7">
               <motion.div
+                data-testid="title-tst"
                 className="text-xl text-white mb-5 lg:mb-10 lg:text-4xl font-semibold"
                 variants={sentence}
                 initial="hidden"
@@ -76,6 +77,7 @@ const longHero = ({ className }: Props) => {
                 {animate("Hi there 👋 I'm your Porsche Co-Driver.")}
               </motion.div>
               <motion.p
+                data-testid="subtitle-tst"
                 className="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-lg lg:text-xl"
                 variants={secondSentence}
                 animate="visible"
@@ -100,6 +102,7 @@ const longHero = ({ className }: Props) => {
                   variant="primary"
                   icon="arrow-right"
                   onClick={onOpen}
+                  data-testid="button-tst"
                 >
                   Get Started
                 </PButton>
@@ -121,10 +124,16 @@ const shortHero = ({ className }: Props) => (
     <section className="bg-gradient-to-r from-gray-800 via-hero to-black">
       <div className="max-w-screen-xl mx-auto p-4">
         <div className="mr-auto place-self-center my-4 lg:my-6">
-          <h1 className="text-xl text-white mb-5 lg:mb-5 lg:text-3xl font-semibold">
+          <h1
+            data-testid="titles-tst"
+            className="text-xl text-white mb-5 lg:mb-5 lg:text-3xl font-semibold"
+          >
             Hi there 👋 I'm your Porsche Co-Driver.
           </h1>
-          <p className="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-md lg:text-lg">
+          <p
+            data-testid="subtitles-tst"
+            className="max-w-2xl mb-6 font-light text-white lg:mb-8 md:text-md lg:text-lg"
+          >
             Your Trusted Source for Answers and Insights into the Porsche
             Knowledge Hub
           </p>
@@ -137,7 +146,8 @@ const shortHero = ({ className }: Props) => (
 export const Hero = ({ className, short }: Props) => {
   return (
     <>
-    {(short && shortHero({ className })) || (!short && longHero({ className }))}
+      {(short && shortHero({ className })) ||
+        (!short && longHero({ className }))}
     </>
   );
 };

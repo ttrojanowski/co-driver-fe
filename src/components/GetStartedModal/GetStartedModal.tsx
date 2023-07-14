@@ -12,6 +12,7 @@ interface Props {
         heading="Get Started with Porsche Co-Driver!"
         open={isModalOpen}
         onDismiss={onDismiss}
+        data-testid="gs-modal-test"
       >
         <br />
         <p>Welcome to Porsche Co-Driver!</p>

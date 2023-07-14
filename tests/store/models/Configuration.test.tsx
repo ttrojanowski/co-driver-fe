@@ -1,8 +1,9 @@
 import { Approaches } from "../../../src/api";
 import { initialState } from "../../../src/store/models/Configuration";
+import { describe, it } from 'vitest'
 
-describe('Configuration', () => {
-    test('initialState should have correct default values', () => {
+describe.concurrent('Configuration', () => {
+    it.concurrent('initialState should have correct default values', async ({ expect }) => {
         expect(initialState).toEqual({
             approach: Approaches.RetrieveThenRead,
             promptTemplate: null,
@@ -16,7 +17,7 @@ describe('Configuration', () => {
         });
     });
 
-    test('Should be able to create a Configuration object', () => {
+    it.concurrent('Should be able to create a Configuration object', async ({ expect }) => {
         const config = {
             ...initialState,
             documentCount: 5,
