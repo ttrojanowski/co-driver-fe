@@ -1,23 +1,22 @@
-import { useRef, useState, useEffect } from "react";
-import styles from "../chat/Chat.module.scss";
+import { useEffect, useRef, useState } from "react";
 
+import { PButtonPure } from "@porsche-design-system/components-react";
+import { useOutletContext } from "react-router-dom";
 import {
-  chatApi,
   Approaches,
   AskResponse,
   ChatRequest,
   ChatTurn,
+  chatApi,
 } from "../../api";
-import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
-import { QuestionInput } from "../../components/QuestionInput";
-import { ExampleList } from "../../components/Example";
-import { UserChatMessage } from "../../components/UserChatMessage";
 import {
   AnalysisPanel,
   AnalysisPanelTabs,
 } from "../../components/AnalysisPanel";
-import { PButtonPure } from "@porsche-design-system/components-react";
-import { useOutletContext } from "react-router-dom";
+import { Answer, AnswerError, AnswerLoading } from "../../components/Answer";
+import { ExampleList } from "../../components/Example";
+import { QuestionInput } from "../../components/QuestionInput";
+import { UserChatMessage } from "../../components/UserChatMessage";
 import { useGetConfigurationQuery } from "../../store/configurationApi";
 
 const Chat = () => {
