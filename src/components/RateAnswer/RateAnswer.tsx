@@ -12,6 +12,18 @@ export const RateAnswer = ({ disabled }: Props) => {
     setRating(rate);
   };
 
+  const colorRating: ((i: number, dark: boolean) =>  string) = (i: number, dark: boolean) => {
+    const colors: any = {
+      1: dark ? "text-red-500": "text-red-400",
+      2: dark ? "text-red-400": "text-red-300",
+      3: dark ? "text-orange-400": "text-orange-300",
+      4: dark ? "text-yellow-400": "text-yellow-300",
+      5: dark ? "text-yellow-300": "text-yellow-200",
+    };
+  
+    return colors[i] || "text-gray-300";
+  };
+
   return (
     <div className="py-3 overflow-y-auto text-sm md:text-lg table-auto whitespace-pre-line flex items-end justify-between">
       <p className="text-sm">Rate your answer:</p>
@@ -27,7 +39,7 @@ export const RateAnswer = ({ disabled }: Props) => {
             }`}
           >
             <svg
-              className={`w-5 h-5 ${hover > i ? 'text-yellow-400' : rating > i ? 'text-yellow-300' : 'text-gray-300'}`}
+              className={`w-5 h-5 ${hover > i ? colorRating(hover, false) + ' hover: scale-110': rating > i ? colorRating(rating, true) : 'text-gray-300'}`}
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"

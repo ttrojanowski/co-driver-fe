@@ -110,7 +110,6 @@ export const Answer = ({
               </div>
             </>
           )}
-          <RateAnswer />
           <LikeAnswer />
         </div>
         {!!parsedAnswer.followupQuestions.length &&
