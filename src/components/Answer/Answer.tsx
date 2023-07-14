@@ -7,6 +7,8 @@ import { parseAnswerToHtml } from "./AnswerParser";
 import { PButtonPure, PDivider } from "@porsche-design-system/components-react";
 import logo from "../../assets/co-driver-logo.png";
 import ShareAnswerDropdown from "../ShareAnswerDropdown/ShareAnswerDropdown";
+import { RateAnswer } from "../RateAnswer/RateAnswer";
+import LikeAnswer from "../LikeAnswer/LikeAnswer";
 
 interface Props {
   answer: AskResponse;
@@ -53,7 +55,7 @@ export const Answer = ({
         border-l-8 border-lime-300 ${
           isSelected ? "outline outline-5 outline-lime-200/70" : ""
         }
-        ${fullWidth ? 'md:max-w-screen-xl' : 'md:max-w-2xl'}`}
+        ${fullWidth ? "md:max-w-screen-xl" : "md:max-w-2xl"}`}
         >
           <div className="pb-2">
             <div className="flex items-center justify-between gap-4">
@@ -108,6 +110,8 @@ export const Answer = ({
               </div>
             </>
           )}
+          <RateAnswer />
+          <LikeAnswer />
         </div>
         {!!parsedAnswer.followupQuestions.length &&
           showFollowupQuestions &&
